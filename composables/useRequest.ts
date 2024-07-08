@@ -10,7 +10,15 @@ interface Option {
     params?: Payload
     body?: Payload
     onRequest?: ({ request, options }: { request: any; options: any }) => void
-    onResponse?: ({ request, response, options }: { request: any; response: any; options: any }) => void
+    onResponse?: ({
+        request,
+        response,
+        options,
+    }: {
+        request: any
+        response: any
+        options: any
+    }) => void
     [key: string]: any
 }
 
