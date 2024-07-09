@@ -1,11 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     compatibilityDate: '2024-04-03',
-    devtools: { enabled: true },
+    devtools: { enabled: false },
     modules: [
         '@pinia/nuxt',
         '@pinia-plugin-persistedstate/nuxt',
         '@nuxtjs/tailwindcss',
+        '@ant-design-vue/nuxt',
     ],
     app: {
         head: {
@@ -15,10 +16,13 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             apiBase: '',
-            storageNamespace: '',
+            storageNamespace: 'wuji_nuxt_',
         },
     },
     piniaPersistedstate: {
         storage: 'cookies',
+    },
+    antd: {
+        extractStyle: true,
     },
 })

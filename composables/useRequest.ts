@@ -69,8 +69,9 @@ class Request {
         }
     }
 
-    request(url: string, payload: Payload, option: Option) {
-        option = merge(this.defaultOption, option)
+    request(url: string, payload?: Payload, option?: Option): Promise<any> {
+        option = merge(this.defaultOption, option || {})
+        payload = payload || {}
 
         // 根据请求类型进行赋值传参
         if (option.method === 'GET') {
@@ -83,30 +84,30 @@ class Request {
         return $fetch(url, option)
     }
 
-    get(url: string, payload: Payload, option: Option) {
+    get(url: string, payload?: Payload, option?: Option): Promise<any> {
         return this.request(url, payload, {
-            ...option,
+            ...(option || {}),
             method: 'GET',
         })
     }
 
-    post(url: string, payload: Payload, option: Option) {
+    post(url: string, payload?: Payload, option?: Option): Promise<any> {
         return this.request(url, payload, {
-            ...option,
+            ...(option || {}),
             method: 'POST',
         })
     }
 
-    put(url: string, payload: Payload, option: Option) {
+    put(url: string, payload?: Payload, option?: Option): Promise<any> {
         return this.request(url, payload, {
-            ...option,
+            ...(option || {}),
             method: 'PUT',
         })
     }
 
-    delete(url: string, payload: Payload, option: Option) {
+    delete(url: string, payload?: Payload, option?: Option): Promise<any> {
         return this.request(url, payload, {
-            ...option,
+            ...(option || {}),
             method: 'DELETE',
         })
     }
