@@ -7,12 +7,20 @@ interface CustomElement extends HTMLElement {
 const KEY = Symbol('bubble')
 
 function onClick(el: CustomElement, binding: DirectiveBinding) {
-    const { style = '', text = '+1', offset = 24, duration = '1s' } = binding.value
-    const disabled = typeof binding.value?.disabled === 'undefined' ? false : binding.value?.disabled
+    const {
+        style = '',
+        text = '+1',
+        offset = 24,
+        duration = '1s',
+    } = binding.value
+    const disabled =
+        typeof binding.value?.disabled === 'undefined'
+            ? false
+            : binding.value?.disabled
 
     if (disabled) return
 
-    const { width, height, x, y } = el.getBoundingClientRect()
+    const { width, x, y } = el.getBoundingClientRect()
     const span: CustomElement = document.createElement('span')
 
     span.addEventListener('transitionend', () => {
@@ -20,7 +28,10 @@ function onClick(el: CustomElement, binding: DirectiveBinding) {
     })
 
     span.innerHTML = text
-    span.setAttribute('style', `position: absolute; top: ${y}px; transition: all ${duration}; pointer-events: none; ${style}`)
+    span.setAttribute(
+        'style',
+        `position: absolute; top: ${y}px; transition: all ${duration}; pointer-events: none; ${style}`
+    )
     el.insertAdjacentElement('afterend', span)
     span.style.left = `${x + width / 2 - span.clientWidth / 2}px`
     span.style.transform = `translateY(-${span.clientHeight + offset}px)`

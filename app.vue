@@ -8,7 +8,7 @@
             }"
         >
             <NuxtLayout>
-                <NuxtPage></NuxtPage>
+                <NuxtPage/>
             </NuxtLayout>
         </a-config-provider>
     </a-extract-style>
