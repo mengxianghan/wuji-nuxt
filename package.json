@@ -3,6 +3,9 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "start": "pm2 start ecosystem.config.cjs",
+        "stop": "pm2 stop wuji",
+        "delete": "pm2 delete wuji",
         "build": "nuxt build",
         "dev": "nuxt dev",
         "generate": "nuxt generate",
