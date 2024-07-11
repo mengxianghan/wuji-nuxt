@@ -7,6 +7,7 @@ export default defineNuxtConfig({
         '@pinia-plugin-persistedstate/nuxt',
         '@nuxtjs/tailwindcss',
         '@ant-design-vue/nuxt',
+        '@nuxt/eslint',
     ],
     app: {
         head: {
