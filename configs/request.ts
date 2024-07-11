@@ -1,4 +1,8 @@
-export default (): {server: string | object, [key: string]: any} => {
+export default (): {
+    server: string | { [key: string]: string }
+    [key: string]: any
+} => {
+    const config = useRuntimeConfig()
     return {
         server: 'https://cloud-gateway-test.53zaixian.com',
         onRequest: ({ request, options }: any) => {

@@ -51,7 +51,6 @@ class Request {
     private defaultOption: Option
 
     constructor(serverKey?: string) {
-        const config = useRuntimeConfig()
         const { server, ...others } = requestConfig()
 
         let baseURL
@@ -59,8 +58,7 @@ class Request {
         if (typeof server === 'string') {
             baseURL = server
         } else {
-            const key = server?.[serverKey as keyof typeof server]
-            baseURL = (config.public?.[key] || key || serverKey) as string
+            baseURL = server?.[serverKey as keyof typeof server]
         }
 
         this.defaultOption = {
