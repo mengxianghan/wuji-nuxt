@@ -1,10 +1,10 @@
-import requestConfig from '~/configs/request'
+import { defaultConfig, serverConfig } from '~/configs/request'
 
 interface Payload {
     [key: string | number]: any
 }
 
-interface Option {
+interface Options {
     baseURL?: string
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
     params?: Payload
@@ -37,7 +37,7 @@ function getType(value: any) {
  * @param sources
  * @returns
  */
-function merge(object: Option, sources: Option): Option {
+function merge(object: Options, sources: Options): Options {
     for (const key in sources) {
         object[key] =
             object[key] && getType(object[key]) === 'object'
@@ -48,64 +48,51 @@ function merge(object: Option, sources: Option): Option {
 }
 
 class Request {
-    private defaultOption: Option
+    private defaultOption: Options
 
     constructor(serverKey?: string) {
-        const { server, ...others } = requestConfig()
-
-        let baseURL
-
-        if (typeof server === 'string') {
-            baseURL = server
-        } else {
-            baseURL = server?.[serverKey as keyof typeof server]
-        }
-
-        this.defaultOption = {
-            ...(others || {}),
-            baseURL,
-        }
+        this.defaultOption = merge(defaultConfig(), serverConfig(serverKey))
     }
 
-    request(url: string, payload?: Payload, option?: Option): Promise<any> {
-        option = merge(this.defaultOption, option || {})
+    request(url: string, payload?: Payload, options?: Options): Promise<any> {
+        options = merge(this.defaultOption, options || {})
         payload = payload || {}
 
         // 根据请求类型进行赋值传参
-        if (option.method === 'GET') {
-            option.params = payload
-            delete option.body
+        if (options.method === 'GET') {
+            options.params = payload
+            delete options.body
         } else {
-            option.body = payload
+            options.body = payload
         }
 
-        return $fetch(url, option)
+        return $fetch(url, options)
     }
 
-    get(url: string, payload?: Payload, option?: Option): Promise<any> {
+    get(url: string, payload?: Payload, options?: Options): Promise<any> {
         return this.request(url, payload, {
-            ...(option || {}),
+            ...(options || {}),
             method: 'GET',
         })
     }
 
-    post(url: string, payload?: Payload, option?: Option): Promise<any> {
+    post(url: string, payload?: Payload, options?: Options): Promise<any> {
         return this.request(url, payload, {
-            ...(option || {}),
+            ...(options || {}),
             method: 'POST',
         })
     }
 
-    put(url: string, payload?: Payload, option?: Option): Promise<any> {
+    put(url: string, payload?: Payload, options?: Options): Promise<any> {
         return this.request(url, payload, {
-            ...(option || {}),
+            ...(options || {}),
             method: 'PUT',
         })
     }
 
-    delete(url: string, payload?: Payload, option?: Option): Promise<any> {
+    delete(url: string, payload?: Payload, options?: Options): Promise<any> {
         return this.request(url, payload, {
-            ...(option || {}),
+            ...(options || {}),
             method: 'DELETE',
         })
     }
