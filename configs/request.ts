@@ -1,16 +1,33 @@
-export default (): {
-    server: string | { [key: string]: string }
+interface RequestConfig {
     [key: string]: any
-} => {
+}
+
+export const defaultConfig = (): RequestConfig => {
     return {
-        server: 'https://cloud-gateway-test.53zaixian.com',
-        onRequest: ({ options }: any) => {
-            const token = useCookieStorage('token')
-            const agencyId = useCookieStorage('agencyId')
-            options.headers = options.headers || {}
-            options.headers.platform = 'school'
-            options.headers['auth-token'] = `Bearer ${token.value}`
-            options.headers.companyId = agencyId.value
-        },
+        onRequest: () => {},
+        onResponse: () => {},
     }
+}
+
+export const serverConfig = (key?: string): RequestConfig => {
+    let result: RequestConfig
+    const config = useRuntimeConfig()
+
+    switch (key) {
+        case 'school':
+            result = {
+                baseURL: 'https://apifoxmock.com/m1/3156808-1518008-default',
+                headers: {
+                    source: 'school',
+                },
+            }
+            break
+        default:
+            result = {
+                baseURL: 'https://apifoxmock.com/m1/3156808-1518008-default',
+            }
+            break
+    }
+
+    return result
 }
