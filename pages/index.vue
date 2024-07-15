@@ -1,7 +1,11 @@
 <template>
     <div>首页</div>
     <div>
-        <a-button type="primary" @click="refresh()">刷新</a-button>
+        <a-button
+            type="primary"
+            @click="refresh()">
+            刷新
+        </a-button>
     </div>
     <div>
         <pre><code>{{ dynamic?.data }}</code></pre>

@@ -11,7 +11,6 @@ export const defaultConfig = (): RequestConfig => {
 
 export const serverConfig = (key?: string): RequestConfig => {
     let result: RequestConfig
-    const config = useRuntimeConfig()
 
     switch (key) {
         case 'school':

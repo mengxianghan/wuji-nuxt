@@ -5,10 +5,9 @@
                 token: {
                     borderRadius: 4,
                 },
-            }"
-        >
+            }">
             <NuxtLayout>
-                <NuxtPage/>
+                <NuxtPage />
             </NuxtLayout>
         </a-config-provider>
     </a-extract-style>
