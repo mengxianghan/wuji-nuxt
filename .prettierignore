@@ -1,4 +1,4 @@
-.nuxt
 nude_modules
-output
+.nuxt
+.output
 *.yaml
